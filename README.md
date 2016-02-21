@@ -1,10 +1,10 @@
 ## OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS
 
-OptDis (OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS) is a tool for computing the provably optimal subnetworks for classification of samples from different classes. The discriminative score is calculated as the difference between the total distance between samples from different classes and the total distance between samples from the same class. Our algorithm is based on [color-coding paradigm] (#colorcoding), which allows for identifying the optimally discriminative subnetwork markers for any given error probability.   
+OptDis (OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS) is a tool for computing the provably optimal subnetworks for classification of samples from different classes. The discriminative score is calculated as the difference between the total distance between samples from different classes and the total distance between samples from the same class. Our algorithm is based on [color-coding paradigm] (#colorcoding), which allows for identifying the optimally discriminative subnetwork markers for any given error probability. The implementation here is based on [our paper](#citation).   
 
 ## Sample Input Files
 
-The expression profile of the sample data is in the file TEST.txt. It has 61 positive samples and 21 negative samples. Note that you need to put all the samples from a class together. all the samples in positive class should be ahead of the samples from negative class. We also give your the PPI network from [HPRD database](www.hprd.org) in the file HPRDNetworkWithComplexes.txt. The file HPRDID.txt contain the mapping from gene symbols/names to RefSeq IDs that are used in HPRDNetworkWithComplexes.txt.
+The expression profile of the sample data is in the file TEST.txt. It has 61 positive samples and 21 negative samples. Note that you need to put all the samples from a class together. all the samples in positive class should be ahead of the samples from negative class. We also give your the PPI network from [HPRD database](http://www.hprd.org) in the file HPRDNetworkWithComplexes.txt. The file HPRDID.txt contain the mapping from gene symbols/names to RefSeq IDs that are used in HPRDNetworkWithComplexes.txt.
 
 ## How To Compile
 
@@ -40,10 +40,13 @@ To create a subnetwork activity file:
 
 So the 1st parameter here is the base folder that was created by the above createGraph program. The 2nd parameter here is the number samples in the positive class. The 3rd parameter here is output subnetwork activity file. The 4th parameter is always OptDis for connected subnetworks. The activity of a subnetwork in a sample is the average of the expressions of genes from that subnetwork.
 
-<a name="citation"></a>
+
 ## CITATION
 
-1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp. "Optimally discriminative subnetwork markers predict response to chemotherapy" Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
+<a name="citation"></a>
+1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp. "Optimally discriminative subnetwork markers predict response to chemotherapy". Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
+<a name="color-coding"></a>
+2. Noga Alon, Raphael Yuster, Uri Zwick. "Color-coding". Journal of the ACM (JACM) 42 (4), 844-856 (1995).
 
 ## CONTACTS
 
