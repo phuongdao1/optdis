@@ -1,13 +1,14 @@
 ## OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS
 
-The expression profile of the sample data is in the file TEST.txt. It has 61 positive samples and 21 negative samples. Note that you need to put all the samples from a class together. Here I put all the samples in positive class first then come the samples from negative class.
-We also give your the PPI network from HPRD database in the file HPRDNetworkWithComplexes.txt. The file HPRDID.txt contain the mapping from gene symbols/names to RefSeq IDs that are used in HPRDNetworkWithComplexes.txt.
+## SAMPLE INPUT FILES
+
+The expression profile of the sample data is in the file TEST.txt. It has 61 positive samples and 21 negative samples. Note that you need to put all the samples from a class together. all the samples in positive class should be ahead of the samples from negative class. We also give your the PPI network from [HPRD database](www.hprd.org) in the file HPRDNetworkWithComplexes.txt. The file HPRDID.txt contain the mapping from gene symbols/names to RefSeq IDs that are used in HPRDNetworkWithComplexes.txt.
 
 ## How To Compile
 
 ```
 g++ createGraph.cpp -o createGraph
-g++ extractModules_OptDis.cpp -fopenmp -O3 -g -o extractModules_OptDis
+g++ extractModules_OptDis.cpp -O3 -g -o extractModules_OptDis
 g++ createModules.cpp -o createModules
 ```
 
@@ -40,7 +41,7 @@ So the 1st parameter here is the base folder that was created by the above creat
 <a name="citation"></a>
 ## CITATION
 
-1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp1. "Optimally discriminative subnetwork markers predict response to chemotherapy" Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
+1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp. "Optimally discriminative subnetwork markers predict response to chemotherapy" Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
 
 ## CONTACTS
 
