@@ -35,3 +35,17 @@ To create a subnetwork activity file:
 ./createModules TEST 61 TEST_OptDis.csv OptDis
 ```
 
+So the 1st parameter here is the base folder that was created by the above createGraph program. The 2nd parameter here is the number samples in the positive class. The 3rd parameter here is output subnetwork activity file. The 4th parameter is always OptDis for connected subnetworks. The activity of a subnetwork in a sample is the average of the expressions of genes from that subnetwork.
+
+<a name="citation"></a>
+## CITATION
+
+1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp1. "Optimally discriminative subnetwork markers predict response to chemotherapy" Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
+
+## CONTACTS
+
+Please report any problems directly to the github issue tracker. Also, you can also send your feedbacks to phuongdao1@gmail.com.
+
+## LICENSE
+
+OptDis is distributed under GNU GPL license version 3.
