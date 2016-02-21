@@ -45,8 +45,10 @@ So the 1st parameter here is the base folder that was created by the above creat
 
 <a name="citation"></a>
 1. Phuong Dao, Kendric Wang, Colin Collins, Martin Ester, Anna Lapuk and S. Cenk Sahinalp. "Optimally discriminative subnetwork markers predict response to chemotherapy". Bioinformatics. 2011 Jul 1; 27(13): i205–i213. [[LINK]](http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3117373/)
-<a name="color-coding"></a>
+
+<a name="colorcoding"></a>
 2. Noga Alon, Raphael Yuster, Uri Zwick. "Color-coding". Journal of the ACM (JACM) 42 (4), 844-856 (1995).
+[[LINK]](http://dl.acm.org/citation.cfm?id=210337)
 
 ## CONTACTS
 
