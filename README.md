@@ -52,7 +52,7 @@ So the 1st parameter here is the base folder that was created by the above creat
 
 ## CONTACTS
 
-Please report any problems directly to the github issue tracker. Also, you can also send your feedbacks to phuongdao1@gmail.com.
+Please report any problems directly to the github issue tracker. Also, you can also send your feedbacks to  phuongdao1 at gmail dot com.
 
 ## LICENSE
 
