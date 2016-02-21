@@ -1,6 +1,8 @@
 ## OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS
 
-## SAMPLE INPUT FILES
+OptDis (OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS) is a tool for computing the provably optimal subnetworks for classification of samples from different classes. The discriminative score is calculated as the difference between the total distance between samples from different classes and the total distance between samples from the same class. Our algorithm is based on [color-coding paradigm] (#colorcoding), which allows for identifying the optimally discriminative subnetwork markers for any given error probability.   
+
+## Sample Input Files
 
 The expression profile of the sample data is in the file TEST.txt. It has 61 positive samples and 21 negative samples. Note that you need to put all the samples from a class together. all the samples in positive class should be ahead of the samples from negative class. We also give your the PPI network from [HPRD database](www.hprd.org) in the file HPRDNetworkWithComplexes.txt. The file HPRDID.txt contain the mapping from gene symbols/names to RefSeq IDs that are used in HPRDNetworkWithComplexes.txt.
 
