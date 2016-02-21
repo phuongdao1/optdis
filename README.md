@@ -1,6 +1,6 @@
 ## OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS
 
-OptDis (OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS) is a tool for computing the provably optimal subnetworks for classification of samples from different classes. The discriminative score is calculated as the difference between the total distance between samples from different classes and the total distance between samples from the same class. Our algorithm is based on [color-coding paradigm] (#colorcoding), which allows for identifying the optimally discriminative subnetwork markers for any given error probability. The implementation here is based on [our paper](#citation).   
+OptDis (OPTIMALLY DISCRIMINATIVE SUBNETWORK MARKERS) is a tool for computing the provably optimal subnetworks for classification of samples from different classes. The discriminative score is calculated as the difference between the total distance between samples from different classes and the total distance between samples from the same class. Our algorithm is based on [color-coding paradigm] (#colorcoding), which allows for identifying the optimally discriminative subnetwork markers for any given error probability. The implementation here is based on [our paper](#citation) where we fix the error probability at 0.01.
 
 ## Sample Input Files
 
