@@ -187,10 +187,6 @@ double calculateModuleWeights(int nn,int nu,module* mo)
         else
             //weight[k]=totalBeClass/totalInClass+ctotalBeClass/ctotalInClass;
             return beClass-inClass;
-
-
-        //printf("vertex %d with weight %lf %lf %lf\n",k,weight[k],totalBeClass,totalInClass);
-    //}
 }
 
 
@@ -201,13 +197,11 @@ void quickSort(int *a, int lo, int hi)
     int i=lo, j=hi, h;
     double x=gainArr[a[(lo+hi)/2]];
 
-    //  partition
-    //cout<<"fail where"<<endl;
     while (i<=j)
     {
         while (gainArr[a[i]]>x) i++;
         while (gainArr[a[j]]<x) j--;
-        //cout<<"fail here"<<endl;
+
         if (i<=j)
         {
             h=a[i]; a[i]=a[j]; a[j]=h;
@@ -260,12 +254,7 @@ void cleanTable(int MAXSIZE)
         //moduleTable[i][j].clear();
     }
 
-/*
-    for (i=0;i<n;i++)
-    for (j=0;j<MAXSIZE;j++)
-        already[i][j][0]=0;
-*/
-    #pragma omp barrier
+    //#pragma omp barrier
 }
 
 void randomColor()
@@ -286,11 +275,9 @@ void putTogether(module *m,module *m1,module *m2){
 
 void transfer(module *m1,module *m2){
      m2->clear();
-     //cout<<"error here"<<m1<<endl;
      set<int>::iterator iter;
      for (iter=m1->begin();iter!=m1->end();iter++)
      {
-        //cout<<*iter<<endl;
         m2->insert(*iter);
      }
 }
@@ -310,13 +297,11 @@ void parse(module *m, int vertex, int comb)
 
 void extractModules()
 {
-    //MAXSIZE=5;
     calculateVertexWeights(numN,m-numN);
     set<int>::iterator iter;
     initializeTable(MAXSIZE);
     double epsilon=0.01;
     int numColorings=(int)floor((log(1/epsilon)/log(exp(1.0)))*exp(MAXSIZE));
-    //int numColorings=100;
     int i,j,k,i1,i2;
 
     int ei[MAXEDGES];
@@ -461,16 +446,10 @@ void extractModules()
             already[k][0][1]=1<<color[k];
             */
 
-            //cout<<"HERE "<<k<<" "<<color[k]<<" "<<(1<<color[k])<<endl;
-            //moduleTable[k][1<<color[k]].insert(k);
         }
 
-        //cout<<"down here "<<numEdges<<endl;
-
         for (j=2;j<=MAXSIZE;j++){
-            //cout<<"SIZE "<<j<<endl;
-            //cout<<"within the for loop"<<endl;
-            #pragma omp parallel for
+            //#pragma omp parallel for
             for (k=0;k<numEdges;k++){
                 //cout<<k<<" "<<numEdges<<"EDGE"<<endl;
                 int sizei,sizej,si,sj,total,i1;
@@ -491,121 +470,30 @@ void extractModules()
                         //cout<<color[ei[k]]<<" "<<si<<" "<<sizei<<" "<<color[ej[k]]<<" "<<sj<<" "<<sizej<<endl;
                         if ((table[ei[k]][si]>untouched)&&(table[ej[k]][sj]>untouched)){
                                    total=si+sj;
-                                   //if ((si+sj)!=(si^sj))
-                                    //cout<<si<<" "<<sj<<endl;
                                    if (table[ei[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
                                                 table[ei[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
                                                 whichVertex[ei[k]][total]=ej[k];
                                                 whichComb[ei[k]][total]=sj;
 
                                                 //cout<<ei[k]<<" "<<total<<" "<<table[ei[k]][total]<<endl;
-                                                //putTogether(&moduleTable[ei[k]][total],&moduleTable[ei[k]][si],&moduleTable[ej[k]][sj]);
                                     }
 
                                     if (table[ej[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
                                                 table[ej[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
                                                 whichVertex[ej[k]][total]=ei[k];
                                                 whichComb[ej[k]][total]=si;
-                                                //putTogether(&moduleTable[ei[k]][total],&moduleTable[ei[k]][si],&moduleTable[ej[k]][sj]);
                                     }
                         }
                     }
 
                 }
-
-
-
-                //cout<<k<<"edge"<<endl;
-                /*
-                for (sizei=1;sizei<=j-1;sizei++){
-                    sizej=j-sizei;
-                    for (i1=1;i1<=already[ei[k]][sizei-1][0];i1++)
-                    for (j1=1;j1<=already[ej[k]][sizej-1][0];j1++)
-                    {
-                        si=already[ei[k]][sizei-1][i1];
-                        sj=already[ej[k]][sizej-1][j1];
-                        //cout<<si<<" "<<sj<<endl;
-                        if ((si+sj)==(si^sj)){
-                            total=si+sj;
-
-
-                            if (table[ei[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
-
-                                whichVertex[ei[k]][total]=ej[k];
-                                whichComb[ei[k]][total]=sj;
-                                if (table[ei[k]][total]<=untouched+0.00001)
-                                {
-                                    already[ei[k]][j-1][0]++;
-                                    already[ei[k]][j-1][already[ei[k]][j-1][0]]=total;
-                                }
-                                table[ei[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
-                            }
-
-                            if (table[ej[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
-
-                                whichVertex[ej[k]][total]=ej[k];
-                                whichComb[ej[k]][total]=sj;
-                                if (table[ej[k]][total]<=untouched+0.00001)
-                                {
-                                    already[ej[k]][j-1][0]++;
-                                    already[ej[k]][j-1][already[ej[k]][j-1][0]]=total;
-                                }
-                                table[ej[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
-                            }
-
-                        }
-                    }
-                }
-                */
-
-
-
-                /*
-                for (sizei=1;sizei<j;sizei++)
-                for (i1=1;i1<=subsetWithColor[sizei][color[ei[k]]][0];i1++)
-                {
-                    si=subsetWithColor[sizei][color[ei[k]]][i1];
-                    //cout<<color[ei[k]]<<" "<<k<<" "<<" "<<si<<" "<<table[ei[k]][si]<<endl;
-
-                    if (table[ei[k]][si]>untouched){
-                            //cout<<j<<" ei "<<color[ei[k]]<<" SI "<<si<<endl;
-                            for (j1=1;j1<=subsetWithColor[j-sizei][color[ej[k]]][0];j1++){
-                                sj=subsetWithColor[j-sizei][color[ej[k]]][j1];
-
-                                if ((table[ej[k]][sj]>untouched)&&((si+sj)==(si^sj))){
-                                    total=si+sj;
-
-                                    if (table[ei[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
-                                                table[ei[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
-                                                whichVertex[ei[k]][total]=ej[k];
-                                                whichComb[ei[k]][total]=sj;
-                                                //cout<<ei[k]<<" "<<total<<" "<<table[ei[k]][total]<<endl;
-                                                //putTogether(&moduleTable[ei[k]][total],&moduleTable[ei[k]][si],&moduleTable[ej[k]][sj]);
-                                    }
-
-                                    if (table[ej[k]][total]<table[ei[k]][si]+table[ej[k]][sj]){
-                                                table[ej[k]][total]=table[ei[k]][si]+table[ej[k]][sj];
-                                                whichVertex[ei[k]][total]=ei[k];
-                                                whichComb[ei[k]][total]=si;
-                                                //putTogether(&moduleTable[ei[k]][total],&moduleTable[ei[k]][si],&moduleTable[ej[k]][sj]);
-                                    }
-                                }
-                            }
-                    }
-                }
-                */
-
-
-
-
             }
-            #pragma omp barrier
+            //#pragma omp barrier
         }
-        //cout<<"stupid here "<<maxComs<<endl;
+
         for (j=0;j<n;j++)
         {
             int size;
-            //cout<<"get here"<<endl;
             for (size=MINSIZE;size<=MAXSIZE;size++)
             for (k=1;k<=subset[size][0];k++)
             if (table[j][subset[size][k]]>untouched)
@@ -613,19 +501,7 @@ void extractModules()
             {
                 maxSeperationSize[j][size]=table[j][subset[size][k]]/(size*1.0);
                 optimalModuleSize[j][size].clear();
-                //cout<<"get scouped here "<<size<<" "<<subset[size][k]<<" "<<maxSeperation[j]<<endl;
                 parse(&optimalModuleSize[j][size],j,subset[size][k]);
-                /*
-                set<int>::iterator iter;
-                double totalSeperation=0.0;
-                    for (iter=optimalModule[j].begin();iter!=optimalModule[j].end();iter++)
-                        totalSeperation+=seperation[*iter];
-
-                if (fabs(totalSeperation-table[j][subset[size][k]])>0.0001)
-                cout<<"BANG BANG BANG "<<totalSeperation<<" "<<table[j][subset[size][k]]<<" j = "<<j<<" "<<subset[size][k]<<endl;
-                */
-                //cout<<j<<" "<<optimalModule[j].size()<<" "<<maxComs<<endl;
-                //transfer(&moduleTable[j][maxComs],&optimalModule[j]);
             }
         }
     }
@@ -647,16 +523,6 @@ void extractModules()
                 saveMax=save;
                 saveSize=size;
             }
-            //cout<<"MODULE "<<j<<" "<<maxSeperation[j]<<endl;
-
-            //for (iter=optimalModule[j].begin();iter!=optimalModule[j].end();iter++)
-                //cout<<*iter<<endl;
-            //cout<<endl;
-            //gainArr[numModules]=maxSeperation[j];
-            //gainArr[numModules]=
-            //moduleOrder[numModules]=numModules;
-            //moduleArr.push_back(optimalModule[j]);
-            //numModules++;
         }
         if (saveMax>untouched){
                 //cout<<"sizeMax "<<sizeMax<<endl;
@@ -668,151 +534,6 @@ void extractModules()
     }
     quickSort(moduleOrder,0,numModules-1);
 }
-
-
-/*
-double informationGain(double* v)
-{
-    int i,j,k;
-    int numBins=ceil(log(m*1.0));
-    //int numBins=2;
-    double l=1000000.0;
-    double r=-1000000.0;
-    for (i=0;i<m;i++){
-        if (v[i]<l)
-            l=v[i];
-        if (v[i]>r)
-            r=v[i];
-    }
-
-    double binLength=(r-l)/(numBins*1.0);
-    double prob0=numN/(m*1.0);
-    double prob1=(m-numN)/(m*1.0);
-    double entropy=-prob1*log(prob1)-prob0*log(prob0);
-
-    double maxR;
-    double minThres=0.00001;
-    int totalInBin;
-    double pInBin;
-    double prob1InBin;
-    double prob0InBin;
-    int num1InBin;
-    int num0InBin;
-    for (int i=1;i<=numBins;i++)
-    {
-        if (i==numBins)
-            maxR=r+minThres;
-        else
-            maxR=l+i*binLength;
-
-        totalInBin=0;
-        for (j=0;j<m;j++)
-        if ((v[j]>=l+(i-1)*binLength)&&(v[j]<maxR))
-            totalInBin++;
-        pInBin=totalInBin/(m*1.0);
-
-        if (totalInBin>0)
-        {
-            num0InBin=0;
-            for (j=0;j<numN;j++)
-            if ((v[j]>=l+(i-1)*binLength)&&(v[j]<maxR))
-                num0InBin++;
-            prob0InBin=num0InBin/(totalInBin*1.0);
-
-            num1InBin=0;
-            for (j=numN;j<m;j++)
-            if ((v[j]>=l+(i-1)*binLength)&&(v[j]<maxR))
-                num1InBin++;
-            prob1InBin=num1InBin/(totalInBin*1.0);
-
-            if (prob1InBin>minThres)
-                entropy=entropy+pInBin*prob1InBin*log(prob1InBin);
-            if (prob0InBin>minThres)
-                entropy=entropy+pInBin*prob0InBin*log(prob0InBin);
-        }
-    }
-    return entropy;
-}
-
-
-void greedyExpand()
-{
-    double arr[MAXSAMPLES];
-    double arr1[MAXSAMPLES];
-    double ig[MAXGENES];
-    int i,j,k,l;
-    double gain,maxGain,currentGain;
-    int save;
-    module current;
-    set<int> neighbors;
-    set<int>::iterator iter;
-    for (i=0;i<n;i++)
-    if (visited.find(i)==visited.end()){
-        current.clear();
-        neighbors.clear();
-
-        //cout<<"start "<<i<<endl;
-
-        for (j=0;j<m;j++)
-                arr[j]=0.0;
-        //
-        l=i;
-        do{
-            current.insert(l);
-
-            for (j=0;j<m;j++)
-                arr[j]+=eArr[j][l][0];
-
-
-
-            for (j=0;j<n;j++)
-            if (g[l][j]>0.0)
-            if ((visited.find(j)==visited.end())&&(current.find(j)==current.end()))
-                neighbors.insert(j);
-
-            //cout<<"Size "<<neighbors.size()<<endl;
-
-            // calculate current gain
-            for (j=0;j<m;j++)
-                arr1[j]=arr[j]/(sqrt(current.size()*1.0));
-            currentGain=informationGain(arr1);
-            //cout<<"current Gain "<<currentGain<<endl;
-
-            l=-1;
-            maxGain=-1000001.0;
-            for (iter=neighbors.begin();iter!=neighbors.end();iter++){
-                //calculate new gain
-                for (j=0;j<m;j++)
-                    arr1[j]=(arr[j]+eArr[j][*iter][0])/(sqrt((current.size()+1)*1.0));
-                gain=informationGain(arr1);
-                //cout<<*iter<<" gains "<<gain<<endl;
-                if ((gain>maxGain)&&(gain>currentGain)) {
-                    maxGain=gain;
-                    l=*iter;
-                }
-            }
-            //cout<<"choose "<<l<<endl;
-        } while ((l>=0)&&(neighbors.size()>0));
-        if (current.size()>=4)
-        {
-            moduleArr.push_back(current);
-            cout<<"MODULE START"<<endl;
-            for (iter=current.begin();iter!=current.end();iter++){
-                cout<<*iter<<endl;
-                visited.insert(*iter);
-            }
-            cout<<"MODULE END"<<endl;
-            gainArr[numModules]=currentGain;
-            numModules++;
-        }
-    }
-    for (i=0;i<numModules;i++)
-        moduleOrder[i]=i;
-    quickSort(moduleOrder,0,numModules-1);
-}
-*/
-
-
 
 int main(int argc,char* argv[])
 {
@@ -867,8 +588,6 @@ int main(int argc,char* argv[])
 	}
     }
 	fclose(f);
-
-	//cout<<"down till here"<<endl;
 
     sprintf(filename,"%s/expression.txt",argv[1]);
 	f=fopen(filename,"r");
@@ -961,7 +680,6 @@ int main(int argc,char* argv[])
                 if (visited.find(*iter1)==visited.end())
             newGenes++;
         }
-        //cout<<"New Genes "<<newGenes<<" "<<endl;
 
         if (OVERLAPFACTOR*newGenes>=(moduleArr[moduleOrder[i]]).size())
         //if ((gainArr[moduleOrder[i]]<coExArr[moduleOrder[i]])||(gainArr[moduleOrder[i]]<=1.15*coExArr[moduleOrder[i]]))
@@ -970,7 +688,6 @@ int main(int argc,char* argv[])
             top50++;
             chosen[i]=true;
             //cout<<i<<" "<<top50<<endl;
-            //cout<<"New Module "<<newGenes<<" "<<i<<endl;
             for (iter1=(moduleArr[moduleOrder[i]]).begin();iter1 != (moduleArr[moduleOrder[i]]).end();iter1++){
                         visited.insert(*iter1);
                         //cout<<*iter1<<endl;
@@ -1003,13 +720,10 @@ int main(int argc,char* argv[])
 	}
 	fclose(f);
 
-    //cout<<"stupid at the end"<<endl;
-
     sprintf(cmdline,"rm %s/OptDis/modules/*",argv[1]);
     cout<<cmdline<<endl;
     system(cmdline);
 
-    //cout<<"stupid at the end"<<endl;
     cout<<numModules<<" top50 "<<top50<<endl;
     int curr=0;
     for (i=0;i<numModules;i++)
